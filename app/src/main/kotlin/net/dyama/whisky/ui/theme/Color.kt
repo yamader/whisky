@@ -1,4 +1,4 @@
-package net.dyama.minskey.ui.theme
+package net.dyama.whisky.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

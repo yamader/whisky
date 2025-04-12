@@ -1,4 +1,4 @@
-package net.dyama.minskey.ui.theme
+package net.dyama.whisky.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

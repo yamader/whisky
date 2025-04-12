@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-  namespace = "net.dyama.minskey"
+  namespace = "net.dyama.whisky"
   compileSdk = 36
 
   defaultConfig {
-    applicationId = "net.dyama.minskey"
+    applicationId = "net.dyama.whisky"
     minSdk = 21
     targetSdk = 36
     versionCode = 1
