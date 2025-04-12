@@ -92,7 +92,7 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun AppTheme(
   darkTheme: Boolean = isSystemInDarkTheme(),
-  content: @Composable () -> Unit
+  content: @Composable () -> Unit,
 ) {
   val colorScheme = when {
     Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
