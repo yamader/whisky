@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package net.dyama.whisky.proto;
+
+message Account {
+  string host = 1;
+  string id = 2;
+  string token = 3;
+}
+
+message Accounts {
+  repeated Account accounts = 1;
+}

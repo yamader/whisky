@@ -7,6 +7,7 @@ plugins {
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.ksp)
+  alias(libs.plugins.protobuf)
 }
 
 android {
@@ -53,6 +54,18 @@ android {
   }
 }
 
+protobuf {
+  generateProtoTasks {
+    all().forEach {
+      it.builtins {
+        create("java") {
+          option("lite")
+        }
+      }
+    }
+  }
+}
+
 kotlin.compilerOptions.optIn.addAll(
   "androidx.compose.material3.ExperimentalMaterial3Api",
 )
@@ -67,5 +80,6 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
   implementation(libs.dagger.hilt.android)
   implementation(libs.kotlinx.serialization.json)
+  implementation(libs.protobuf.javalite)
   ksp(libs.dagger.hilt.android.compiler)
 }
