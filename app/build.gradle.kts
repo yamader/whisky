@@ -2,9 +2,11 @@ import java.util.Properties
 
 plugins {
   alias(libs.plugins.android.application)
+  alias(libs.plugins.dagger.hilt.android)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.ksp)
 }
 
 android {
@@ -61,6 +63,9 @@ dependencies {
   implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.compose.ui)
   implementation(libs.androidx.datastore.preferences)
+  implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.androidx.navigation.compose)
+  implementation(libs.dagger.hilt.android)
   implementation(libs.kotlinx.serialization.json)
+  ksp(libs.dagger.hilt.android.compiler)
 }

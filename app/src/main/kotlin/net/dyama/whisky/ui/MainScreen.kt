@@ -36,19 +36,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
-enum class Tabs {
-  Home, Explore, Notifications, Messages
+enum class MainScreenTabs {
+  HOME, EXPLORE, NOTIFICATIONS, MESSAGES
 }
 
 // そのうちブラックリスト→ホワイトリストにしたい
@@ -94,13 +93,16 @@ fun RowScope.BottomNavButton(
 }
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(
+  navController: NavController,
+  viewModel: MainScreenViewModel = hiltViewModel(),
+) {
   val drawerState = rememberDrawerState(DrawerValue.Closed)
   val scope = rememberCoroutineScope()
-  var currentTab by remember { mutableStateOf(Tabs.Home) }
+  var currentTab by viewModel.currentTab
 
-  BackHandler(currentTab != Tabs.Home) {
-    currentTab = Tabs.Home
+  BackHandler(currentTab != MainScreenTabs.HOME) {
+    viewModel.setTab(MainScreenTabs.HOME)
   }
 
   ModalNavigationDrawer(
@@ -129,27 +131,27 @@ fun MainScreen(navController: NavController) {
       bottomBar = {
         NavigationBar(Modifier.disableHorizontalDrag()) {
           BottomNavButton(
-            selected = currentTab == Tabs.Home,
-            onClick = { currentTab = Tabs.Home },
+            selected = currentTab == MainScreenTabs.HOME,
+            onClick = { viewModel.setTab(MainScreenTabs.HOME) },
             icon = Icons.Outlined.Home,
             iconSelected = Icons.Filled.Home,
           )
           BottomNavButton(
-            selected = currentTab == Tabs.Explore,
-            onClick = { currentTab = Tabs.Explore },
+            selected = currentTab == MainScreenTabs.EXPLORE,
+            onClick = { viewModel.setTab(MainScreenTabs.EXPLORE) },
             onClickSelected = { },
             icon = Icons.Outlined.Search,
             iconSelected = Icons.Filled.Search,
           )
           BottomNavButton(
-            selected = currentTab == Tabs.Notifications,
-            onClick = { currentTab = Tabs.Notifications },
+            selected = currentTab == MainScreenTabs.NOTIFICATIONS,
+            onClick = { viewModel.setTab(MainScreenTabs.NOTIFICATIONS) },
             icon = Icons.Outlined.Notifications,
             iconSelected = Icons.Filled.Notifications,
           )
           BottomNavButton(
-            selected = currentTab == Tabs.Messages,
-            onClick = { currentTab = Tabs.Messages },
+            selected = currentTab == MainScreenTabs.MESSAGES,
+            onClick = { viewModel.setTab(MainScreenTabs.MESSAGES) },
             icon = Icons.Outlined.Email,
             iconSelected = Icons.Filled.Email,
           )
@@ -169,10 +171,10 @@ fun MainScreen(navController: NavController) {
         .padding(innerPadding)
 
       when (currentTab) {
-        Tabs.Home -> HomeTab(modifier, navController)
-        Tabs.Explore -> ExploreTab(modifier, navController)
-        Tabs.Notifications -> NotificationsTab(modifier, navController)
-        Tabs.Messages -> MessagesTab(modifier, navController)
+        MainScreenTabs.HOME -> HomeTab(modifier, navController)
+        MainScreenTabs.EXPLORE -> ExploreTab(modifier, navController)
+        MainScreenTabs.NOTIFICATIONS -> NotificationsTab(modifier, navController)
+        MainScreenTabs.MESSAGES -> MessagesTab(modifier, navController)
       }
     }
   }
