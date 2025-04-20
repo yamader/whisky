@@ -12,15 +12,15 @@ object Routes {
 }
 
 @Composable
-fun WhiskyApp() {
+fun WhiskyApp(onReady: () -> Unit) {
   val navController = rememberNavController()
 
-  AppTheme {
+  WhiskyTheme {
     NavHost(
       navController = navController,
       startDestination = Routes.Home,
     ) {
-      composable<Routes.Home> { MainScreen(navController) }
+      composable<Routes.Home> { MainScreen(navController, onReady) }
       composable<Routes.Login> { LoginScreen(navController) }
     }
   }

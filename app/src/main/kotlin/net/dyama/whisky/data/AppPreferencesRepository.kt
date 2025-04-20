@@ -5,12 +5,14 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import net.dyama.whisky.ui.MainScreenTabs
 import javax.inject.Inject
 import javax.inject.Singleton
 
 data class AppPreferences(
+  val lastAccountId: String,
   val lastMainScreenTab: MainScreenTabs,
 )
 
@@ -20,17 +22,30 @@ class AppPreferencesRepository @Inject constructor(
 ) {
   private companion object {
     val Context.dataStore by preferencesDataStore("app_preferences")
-    val MAIN_SCREEN_TAB = stringPreferencesKey("main_screen_tab")
+    val LAST_ACCOUNT_ID = stringPreferencesKey("last_account_id")
+    val LAST_MAIN_SCREEN_TAB = stringPreferencesKey("last_main_screen_tab")
   }
 
-  val flow = context.dataStore.data.map { preferences ->
+  val flow = context.dataStore.data.map {
     AppPreferences(
+      lastAccountId = it[LAST_ACCOUNT_ID] ?: "",
       lastMainScreenTab = MainScreenTabs.valueOf(
-        preferences[MAIN_SCREEN_TAB] ?: MainScreenTabs.HOME.name
+        it[LAST_MAIN_SCREEN_TAB] ?: MainScreenTabs.HOME.name
       )
     )
   }
 
-  suspend fun saveMainScreenTab(tab: MainScreenTabs) =
-    context.dataStore.edit { preferences -> preferences[MAIN_SCREEN_TAB] = tab.name }
+  suspend fun fetch() = flow.firstOrNull()
+    ?: AppPreferences(
+      lastAccountId = "",
+      lastMainScreenTab = MainScreenTabs.HOME,
+    )
+
+  suspend fun saveLastAccountId(id: String) = context.dataStore.edit {
+    it[LAST_ACCOUNT_ID] = id
+  }
+
+  suspend fun saveLastMainScreenTab(tab: MainScreenTabs) = context.dataStore.edit {
+    it[LAST_MAIN_SCREEN_TAB] = tab.name
+  }
 }

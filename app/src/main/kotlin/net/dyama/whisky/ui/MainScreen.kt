@@ -32,11 +32,15 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -44,6 +48,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 enum class MainScreenTabs {
@@ -95,11 +100,26 @@ fun RowScope.BottomNavButton(
 @Composable
 fun MainScreen(
   navController: NavController,
+  onReady: () -> Unit,
   viewModel: MainScreenViewModel = hiltViewModel(),
 ) {
   val drawerState = rememberDrawerState(DrawerValue.Closed)
   val scope = rememberCoroutineScope()
-  var currentTab by viewModel.currentTab
+  val currentTab by viewModel.currentTab
+
+  // どうにかならんものか……
+  var render by rememberSaveable { mutableStateOf(false) }
+  LaunchedEffect(Unit) {
+    if (viewModel.accountFlow.first() == null) {
+      navController.navigate(Routes.Login) {
+        popUpTo(navController.graph.startDestinationId) { inclusive = true }
+      }
+    } else {
+      render = true
+    }
+    onReady()
+  }
+  if (!render) return Surface(Modifier.fillMaxSize()) {}
 
   BackHandler(currentTab != MainScreenTabs.HOME) {
     viewModel.setTab(MainScreenTabs.HOME)
