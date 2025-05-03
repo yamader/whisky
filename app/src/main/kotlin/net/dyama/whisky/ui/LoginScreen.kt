@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,6 +38,7 @@ fun LoginScreen(
 ) {
   val context = LocalContext.current
   var hostOrId by viewModel.hostOrId
+  var hostOrIdError by viewModel.hostOrIdError
 
   Scaffold(
     topBar = {
@@ -60,12 +62,22 @@ fun LoginScreen(
           fontSize = 28.sp,
           fontWeight = FontWeight.Bold,
         )
-        OutlinedTextField(
-          value = hostOrId,
-          onValueChange = { hostOrId = it },
-          modifier = Modifier.fillMaxWidth(),
-          label = { Text("ホスト/ユーザID") },
-        )
+        Column {
+          OutlinedTextField(
+            value = hostOrId,
+            onValueChange = {
+              hostOrId = it
+              hostOrIdError = ""
+            },
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text("ホスト/ユーザID") },
+            isError = hostOrIdError.isNotEmpty(),
+            singleLine = true,
+          )
+          if (hostOrIdError.isNotEmpty()) {
+            Text(hostOrIdError, color = MaterialTheme.colorScheme.error)
+          }
+        }
       }
       Spacer(Modifier.weight(1f))
       HorizontalDivider()
@@ -75,7 +87,10 @@ fun LoginScreen(
           .padding(16.dp),
         horizontalArrangement = Arrangement.End,
       ) {
-        Button(onClick = { viewModel.next(context, navController) }) {
+        Button(
+          onClick = { viewModel.next(context, navController) },
+          enabled = hostOrId.isNotEmpty() and hostOrIdError.isEmpty(),
+        ) {
           Text("次へ")
         }
       }

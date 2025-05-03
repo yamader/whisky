@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 
-
 sealed class Routes {
   @Serializable object Home : Routes()
   @Serializable object Login : Routes()

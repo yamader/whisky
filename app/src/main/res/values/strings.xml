@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_label">whisky</string>
+  <string name="e_acct_already_exists">Account already exists</string>
+  <string name="e_auth_failed">Authentication failed</string>"
+  <string name="e_host_invalid">Invalid host</string>
+  <string name="e_host_server_unknown">Unsupported server</string>
+  <string name="e_wip">Not implemented yet</string>
 </resources>

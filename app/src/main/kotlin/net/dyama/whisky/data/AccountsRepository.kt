@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import net.dyama.whisky.lib.Ulid
+import net.dyama.whisky.lib.chomp
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +22,7 @@ data class Account(
   val token: String,
 ) {
   val host = hostUrl.toUri().authority
-  val id = "$username@$host"
+  val id = "@$username@$host"
 }
 
 @Singleton
@@ -34,12 +35,8 @@ class AccountsRepository @Inject constructor(
 
   val flow = context.dataStore.data.map { prefs ->
     prefs.asMap()
-      .map {
-        val (_, id) = it.key.name.split("-", limit = 2)
-        id to Json.decodeFromString<Account>(it.value as String)
-      }
+      .map { it.key.name.chomp("-").second to Json.decodeFromString<Account>(it.value as String) }
       .toMap()
-      .toSortedMap()
   }
 
   suspend fun fetch() = flow.firstOrNull() ?: emptyMap()
@@ -47,13 +44,13 @@ class AccountsRepository @Inject constructor(
   suspend fun get(id: String) = fetch()[id]
 
   suspend fun save(account: Account) = context.dataStore.edit { prefs ->
-    val key = prefs.asMap().keys.map { it.name }.find { it.endsWith(account.id) }
+    val key = prefs.asMap().keys.map { it.name }.find { it.chomp("-").second == account.id }
       ?: (Ulid.generate() + "-" + account.id)
     prefs[stringPreferencesKey(key)] = Json.encodeToString(account)
   }
 
   suspend fun delete(id: String) = context.dataStore.edit { prefs ->
-    prefs.asMap().keys.map { it.name }.find { it.endsWith(id) }?.let {
+    prefs.asMap().keys.map { it.name }.find { it.chomp("-").second == id }?.let {
       prefs.remove(stringPreferencesKey(it))
     }
   }

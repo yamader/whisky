@@ -70,5 +70,10 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
   implementation(libs.dagger.hilt.android)
   implementation(libs.kotlinx.serialization.json)
+  implementation(libs.ktor.client.cio)
+  implementation(libs.ktor.client.content.negotiation)
+  implementation(libs.ktor.client.core)
+  implementation(libs.ktor.client.websockets)
+  implementation(libs.ktor.serialization.kotlinx.json)
   ksp(libs.dagger.hilt.android.compiler)
 }
