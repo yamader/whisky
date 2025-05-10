@@ -48,7 +48,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 enum class MainScreenTabs {
@@ -103,14 +102,11 @@ fun MainScreen(
   onReady: () -> Unit,
   viewModel: MainScreenViewModel = hiltViewModel(),
 ) {
-  val drawerState = rememberDrawerState(DrawerValue.Closed)
-  val scope = rememberCoroutineScope()
-  val currentTab by viewModel.currentTab
-
+  //--------------------------------------------------------------
   // どうにかならんものか……
   var render by rememberSaveable { mutableStateOf(false) }
   LaunchedEffect(Unit) {
-    if (viewModel.accountFlow.first() == null) {
+    if (viewModel.notHaveAnyAccounts()) {
       navController.navigate(Routes.Login) {
         popUpTo(navController.graph.startDestinationId) { inclusive = true }
       }
@@ -120,6 +116,11 @@ fun MainScreen(
     onReady()
   }
   if (!render) return Surface(Modifier.fillMaxSize()) {}
+  //--------------------------------------------------------------
+
+  val drawerState = rememberDrawerState(DrawerValue.Closed)
+  val scope = rememberCoroutineScope()
+  val currentTab by viewModel.currentTab
 
   BackHandler(currentTab != MainScreenTabs.HOME) {
     viewModel.setTab(MainScreenTabs.HOME)

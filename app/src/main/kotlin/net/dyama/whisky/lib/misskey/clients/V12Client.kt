@@ -11,6 +11,8 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import net.dyama.whisky.lib.jsonObjectOf
+import net.dyama.whisky.lib.misskey.entity.Note
 import net.dyama.whisky.lib.misskey.entity.Pong
 import net.dyama.whisky.lib.misskey.entity.User
 
@@ -26,14 +28,22 @@ open class V12Client(
 
   protected suspend inline fun <reified T> post(
     path: String,
-    body: JsonObject = JsonObject(emptyMap()),
+    body: JsonObject = jsonObjectOf(),
   ): T {
     return client.post("$host/api/$path") {
       contentType(ContentType.Application.Json)
-      setBody(body + ("i" to token))
+      setBody(jsonObjectOf("i" to token) + body)
     }.body()
   }
 
-  override suspend fun i(): User = post("i")
   override suspend fun ping(): Pong = post("ping")
+
+  override suspend fun i(): User = post("i")
+
+  override suspend fun timeline(limit: Int): List<Note> = post(
+    "notes/timeline",
+    jsonObjectOf(
+      "limit" to limit,
+    )
+  )
 }

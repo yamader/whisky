@@ -69,6 +69,7 @@ dependencies {
   implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.androidx.navigation.compose)
   implementation(libs.dagger.hilt.android)
+  implementation(libs.kotlinx.datetime)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.ktor.client.cio)
   implementation(libs.ktor.client.content.negotiation)

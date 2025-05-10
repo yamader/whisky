@@ -21,7 +21,7 @@ data class Account(
   val username: String,
   val token: String,
 ) {
-  val host = hostUrl.toUri().authority
+  val host = hostUrl.toUri().authority!!
   val id = "@$username@$host"
 }
 
