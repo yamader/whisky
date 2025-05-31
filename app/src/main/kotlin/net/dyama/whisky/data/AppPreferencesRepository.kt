@@ -7,7 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import net.dyama.whisky.ui.MainScreenTabs
+import net.dyama.whisky.ui.screens.MainScreenTabs
 import javax.inject.Inject
 import javax.inject.Singleton
 

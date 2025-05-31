@@ -1,4 +1,4 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.screens
 
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
@@ -49,6 +49,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
+import net.dyama.whisky.ui.Routes
+import net.dyama.whisky.ui.common.BackHandler
+import net.dyama.whisky.ui.screens.mainscreen.ExploreTab
+import net.dyama.whisky.ui.screens.mainscreen.HomeTab
+import net.dyama.whisky.ui.screens.mainscreen.MessagesTab
+import net.dyama.whisky.ui.screens.mainscreen.NotificationsTab
 
 enum class MainScreenTabs {
   HOME, EXPLORE, NOTIFICATIONS, MESSAGES

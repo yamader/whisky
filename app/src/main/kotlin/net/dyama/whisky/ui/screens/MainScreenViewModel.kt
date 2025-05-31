@@ -1,4 +1,4 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.screens
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import net.dyama.whisky.data.AccountsRepository
 import net.dyama.whisky.data.AppPreferencesRepository
+import net.dyama.whisky.ui.data.CurrentAccountRepository
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.common
 
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback

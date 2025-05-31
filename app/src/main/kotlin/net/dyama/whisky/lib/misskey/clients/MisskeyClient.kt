@@ -4,7 +4,7 @@ import net.dyama.whisky.lib.misskey.entity.Note
 import net.dyama.whisky.lib.misskey.entity.Pong
 import net.dyama.whisky.lib.misskey.entity.User
 
-interface BaseClient {
+interface MisskeyClient {
   suspend fun ping(): Pong
 
   // i

@@ -1,4 +1,4 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.data
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

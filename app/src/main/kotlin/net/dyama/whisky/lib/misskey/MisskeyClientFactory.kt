@@ -15,11 +15,11 @@ import kotlinx.serialization.json.jsonPrimitive
 import net.dyama.whisky.lib.Semver
 import net.dyama.whisky.lib.lt
 import net.dyama.whisky.lib.major
-import net.dyama.whisky.lib.misskey.clients.BaseClient
-import net.dyama.whisky.lib.misskey.clients.V12Client
-import net.dyama.whisky.lib.misskey.clients.V13Client
-import net.dyama.whisky.lib.misskey.clients.V2023Client
-import net.dyama.whisky.lib.misskey.clients.V2025Client
+import net.dyama.whisky.lib.misskey.clients.MisskeyClient
+import net.dyama.whisky.lib.misskey.clients.MisskeyV12Client
+import net.dyama.whisky.lib.misskey.clients.MisskeyV13Client
+import net.dyama.whisky.lib.misskey.clients.MisskeyV2023Client
+import net.dyama.whisky.lib.misskey.clients.MisskeyV2025Client
 import net.dyama.whisky.lib.toSemver
 
 object MisskeyClientFactory {
@@ -36,13 +36,13 @@ object MisskeyClientFactory {
     return res.body<JsonObject>()["version"]?.jsonPrimitive?.contentOrNull?.toSemver()
   }
 
-  suspend fun detectClient(host: String, token: String? = null): BaseClient {
-    val ver = getVersion(host) ?: return V2025Client(host, token)
+  suspend fun detectClient(host: String, token: String? = null): MisskeyClient {
+    val ver = getVersion(host) ?: return MisskeyV2025Client(host, token)
     return when {
-      ver.major <= 12 -> V12Client(host, token)
-      ver.major == 13 -> V13Client(host, token)
-      ver.lt(2025, 5) -> V2023Client(host, token)
-      else -> V2025Client(host, token)
+      ver.major <= 12 -> MisskeyV12Client(host, token)
+      ver.major == 13 -> MisskeyV13Client(host, token)
+      ver.lt(2025, 5) -> MisskeyV2023Client(host, token)
+      else -> MisskeyV2025Client(host, token)
     }
   }
 

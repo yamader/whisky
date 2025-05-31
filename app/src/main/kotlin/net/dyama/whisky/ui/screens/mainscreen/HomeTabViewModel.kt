@@ -1,9 +1,10 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.screens.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import net.dyama.whisky.ui.data.CurrentAccountRepository
 import javax.inject.Inject
 
 @HiltViewModel

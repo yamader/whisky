@@ -16,10 +16,10 @@ import net.dyama.whisky.lib.misskey.entity.Note
 import net.dyama.whisky.lib.misskey.entity.Pong
 import net.dyama.whisky.lib.misskey.entity.User
 
-open class V12Client(
+open class MisskeyV12Client(
   protected val host: String,
   protected var token: String?,
-) : BaseClient {
+) : MisskeyClient {
   protected val client = HttpClient(CIO) {
     install(ContentNegotiation) {
       json(Json { ignoreUnknownKeys = true })

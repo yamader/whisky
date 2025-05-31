@@ -1,4 +1,4 @@
-package net.dyama.whisky.ui
+package net.dyama.whisky.ui.screens
 
 import android.content.Context
 import androidx.browser.customtabs.CustomTabsIntent
