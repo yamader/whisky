@@ -8,18 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.Create
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.FloatingActionButton
@@ -55,6 +44,18 @@ import net.dyama.whisky.ui.screens.mainscreen.ExploreTab
 import net.dyama.whisky.ui.screens.mainscreen.HomeTab
 import net.dyama.whisky.ui.screens.mainscreen.MessagesTab
 import net.dyama.whisky.ui.screens.mainscreen.NotificationsTab
+import net.dyama.whisky.ui.symbols.Symbols
+import net.dyama.whisky.ui.symbols.filled.Home
+import net.dyama.whisky.ui.symbols.filled.Mail
+import net.dyama.whisky.ui.symbols.filled.Notifications
+import net.dyama.whisky.ui.symbols.filled.Search
+import net.dyama.whisky.ui.symbols.outlined.AccountCircle
+import net.dyama.whisky.ui.symbols.outlined.Edit
+import net.dyama.whisky.ui.symbols.outlined.Home
+import net.dyama.whisky.ui.symbols.outlined.Mail
+import net.dyama.whisky.ui.symbols.outlined.Notifications
+import net.dyama.whisky.ui.symbols.outlined.Search
+import net.dyama.whisky.ui.symbols.outlined.Settings
 
 enum class MainScreenTabs {
   HOME, EXPLORE, NOTIFICATIONS, MESSAGES
@@ -145,12 +146,12 @@ fun MainScreen(
             IconButton(onClick = {
               scope.launch { drawerState.open() }
             }) {
-              Icon(Icons.Outlined.AccountCircle, contentDescription = null)
+              Icon(Symbols.Outlined.AccountCircle, contentDescription = null)
             }
           },
           actions = {
             IconButton(onClick = { }) {
-              Icon(Icons.Outlined.Settings, contentDescription = null)
+              Icon(Symbols.Outlined.Settings, contentDescription = null)
             }
           },
         )
@@ -160,27 +161,27 @@ fun MainScreen(
           BottomNavButton(
             selected = currentTab == MainScreenTabs.HOME,
             onClick = { viewModel.setTab(MainScreenTabs.HOME) },
-            icon = Icons.Outlined.Home,
-            iconSelected = Icons.Filled.Home,
+            icon = Symbols.Outlined.Home,
+            iconSelected = Symbols.Filled.Home,
           )
           BottomNavButton(
             selected = currentTab == MainScreenTabs.EXPLORE,
             onClick = { viewModel.setTab(MainScreenTabs.EXPLORE) },
             onClickSelected = { },
-            icon = Icons.Outlined.Search,
-            iconSelected = Icons.Filled.Search,
+            icon = Symbols.Outlined.Search,
+            iconSelected = Symbols.Filled.Search,
           )
           BottomNavButton(
             selected = currentTab == MainScreenTabs.NOTIFICATIONS,
             onClick = { viewModel.setTab(MainScreenTabs.NOTIFICATIONS) },
-            icon = Icons.Outlined.Notifications,
-            iconSelected = Icons.Filled.Notifications,
+            icon = Symbols.Outlined.Notifications,
+            iconSelected = Symbols.Filled.Notifications,
           )
           BottomNavButton(
             selected = currentTab == MainScreenTabs.MESSAGES,
             onClick = { viewModel.setTab(MainScreenTabs.MESSAGES) },
-            icon = Icons.Outlined.Email,
-            iconSelected = Icons.Filled.Email,
+            icon = Symbols.Outlined.Mail,
+            iconSelected = Symbols.Filled.Mail,
           )
         }
       },
@@ -189,7 +190,7 @@ fun MainScreen(
           onClick = { },
           modifier = Modifier.disableHorizontalDrag(),
         ) {
-          Icon(Icons.Outlined.Create, contentDescription = null)
+          Icon(Symbols.Outlined.Edit, contentDescription = null)
         }
       },
     ) { innerPadding ->
