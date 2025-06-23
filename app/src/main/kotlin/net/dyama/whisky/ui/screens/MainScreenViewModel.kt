@@ -5,20 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import net.dyama.whisky.data.AccountsRepository
+import net.dyama.whisky.data.AccountRepository
 import net.dyama.whisky.data.AppPreferencesRepository
 import net.dyama.whisky.ui.data.CurrentAccountRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-  private val accountsRepository: AccountsRepository,
+  private val accountRepository: AccountRepository,
   private val appPreferencesRepository: AppPreferencesRepository,
   private val currentAccountRepository: CurrentAccountRepository,
 ) : ViewModel() {
   var currentTab = mutableStateOf(MainScreenTabs.HOME)
 
-  suspend fun notHaveAnyAccounts() = accountsRepository.fetch().isEmpty()
+  suspend fun notHaveAnyAccounts() = accountRepository.fetch().isEmpty()
 
   init {
     viewModelScope.launch {

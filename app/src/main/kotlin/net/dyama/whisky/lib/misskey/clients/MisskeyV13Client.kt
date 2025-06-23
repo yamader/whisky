@@ -1,5 +1,8 @@
 package net.dyama.whisky.lib.misskey.clients
 
-open class MisskeyV13Client(host: String, token: String?) : MisskeyV12Client(host, token) {
+import net.dyama.whisky.lib.misskey.MisskeyClientCache
+
+open class MisskeyV13Client(host: String, token: String?, cache: MisskeyClientCache?) :
+  MisskeyV12Client(host, token, cache) {
   //
 }

@@ -11,7 +11,13 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import net.dyama.whisky.data.CustomEmojiCache
 import net.dyama.whisky.lib.jsonObjectOf
+import net.dyama.whisky.lib.misskey.MisskeyClientCache
 import net.dyama.whisky.lib.misskey.entity.Note
 import net.dyama.whisky.lib.misskey.entity.Pong
 import net.dyama.whisky.lib.misskey.entity.User
@@ -19,6 +25,7 @@ import net.dyama.whisky.lib.misskey.entity.User
 open class MisskeyV12Client(
   protected val host: String,
   protected var token: String?,
+  protected val cache: MisskeyClientCache?,
 ) : MisskeyClient {
   protected val client = HttpClient(CIO) {
     install(ContentNegotiation) {
@@ -46,4 +53,29 @@ open class MisskeyV12Client(
       "limit" to limit,
     )
   )
+
+  suspend fun emojis(refresh: Boolean = false): Map<String, String> {
+    if (!refresh && cache != null) {
+      return cache.emojis.mapValues { it.value.url }
+    }
+
+    val res: JsonObject = post("meta")
+    val emojisJson = res["emojis"]?.jsonArray ?: return emptyMap()
+    val emojis = emojisJson.mapNotNull {
+      val name = it.jsonObject["name"]?.jsonPrimitive?.content ?: return@mapNotNull null
+      val url = it.jsonObject["url"]?.jsonPrimitive?.content ?: return@mapNotNull null
+      val host = it.jsonObject["host"]?.jsonPrimitive?.contentOrNull ?: host
+      CustomEmojiCache(name, host, url)
+    }
+    cache?.saveEmojis(emojis)
+    return emojis.associate { "${it.name}@${it.host}" to it.url }
+  }
+
+  suspend fun emoji(id: String, refresh: Boolean = false): String? {
+    if (cache?.emojis?.get(id) == null) {
+    }
+    return cache?.emojis?.getOrElse(id) {
+      return CustomEmojiCache()
+    }?.url
+  }
 }

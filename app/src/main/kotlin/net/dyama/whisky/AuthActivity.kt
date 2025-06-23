@@ -19,7 +19,7 @@ import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import net.dyama.whisky.data.Account
-import net.dyama.whisky.data.AccountsRepository
+import net.dyama.whisky.data.AccountRepository
 import net.dyama.whisky.data.AppPreferencesRepository
 import net.dyama.whisky.data.AuthSessionRepository
 import net.dyama.whisky.data.AuthSessionType.MisskeyMiauth
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AuthActivity : ComponentActivity() {
-  @Inject lateinit var accountsRepository: AccountsRepository
+  @Inject lateinit var accountRepository: AccountRepository
   @Inject lateinit var appPreferencesRepository: AppPreferencesRepository
   @Inject lateinit var authSessionRepository: AuthSessionRepository
 
@@ -59,7 +59,7 @@ class AuthActivity : ComponentActivity() {
             val username = client.i().username
             val account = Account(session.hostUrl, username, token)
 
-            accountsRepository.save(account)
+            accountRepository.save(account)
             appPreferencesRepository.saveLastAccountId(account.id)
           } else {
             Toast.makeText(

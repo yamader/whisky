@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.dyama.whisky.R
-import net.dyama.whisky.data.AccountsRepository
+import net.dyama.whisky.data.AccountRepository
 import net.dyama.whisky.data.AppPreferencesRepository
 import net.dyama.whisky.data.AuthSession
 import net.dyama.whisky.data.AuthSessionRepository
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-  private val accountsRepository: AccountsRepository,
+  private val accountRepository: AccountRepository,
   private val appPreferencesRepository: AppPreferencesRepository,
   private val authSessionRepository: AuthSessionRepository,
 ) : ViewModel() {
@@ -58,7 +58,7 @@ class LoginViewModel @Inject constructor(
   suspend fun doLogin(context: Context, navController: NavController) {
     val resources = context.resources
 
-    if (accountsRepository.get(hostOrId.value) != null) {
+    if (accountRepository.get(hostOrId.value) != null) {
       hostOrIdError.value = resources.getString(R.string.e_acct_already_exists)
       return
     }

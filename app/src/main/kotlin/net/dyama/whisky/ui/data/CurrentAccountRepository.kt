@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import net.dyama.whisky.data.AccountsRepository
+import net.dyama.whisky.data.AccountRepository
 import net.dyama.whisky.data.AppPreferencesRepository
 import net.dyama.whisky.lib.misskey.MisskeyClientFactory
 import javax.inject.Inject
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @Singleton
 class CurrentAccountRepository @Inject constructor(
-  private val accountsRepository: AccountsRepository,
+  private val accountRepository: AccountRepository,
   private val appPreferencesRepository: AppPreferencesRepository,
 ) {
   private val scope = CoroutineScope(Dispatchers.IO)
@@ -25,7 +25,7 @@ class CurrentAccountRepository @Inject constructor(
   private var _currentAccountId = MutableStateFlow<String?>(null)
 
   val currentAccountFlow = combine(
-    accountsRepository.flow,
+    accountRepository.flow,
     _currentAccountId.filterNotNull(),
   ) { accounts, id -> accounts[id] }
 
@@ -35,7 +35,7 @@ class CurrentAccountRepository @Inject constructor(
 
   init {
     scope.launch {
-      val accounts = accountsRepository.fetch()
+      val accounts = accountRepository.fetch()
       appPreferencesRepository.fetch().lastAccountId.let {
         if (it in accounts) {
           _currentAccountId.value = it
@@ -48,7 +48,7 @@ class CurrentAccountRepository @Inject constructor(
 
   fun setCurrentAccountId(id: String) {
     scope.launch {
-      if (id in accountsRepository.fetch()) {
+      if (id in accountRepository.fetch()) {
         _currentAccountId.value = id
         appPreferencesRepository.saveLastAccountId(id)
       }

@@ -26,7 +26,7 @@ data class Account(
 }
 
 @Singleton
-class AccountsRepository @Inject constructor(
+class AccountRepository @Inject constructor(
   @ApplicationContext private val context: Context,
 ) {
   private companion object {

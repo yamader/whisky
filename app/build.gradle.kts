@@ -68,6 +68,7 @@ dependencies {
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.androidx.navigation.compose)
+  implementation(libs.bumptech.glide)
   implementation(libs.dagger.hilt.android)
   implementation(libs.kotlinx.datetime)
   implementation(libs.kotlinx.serialization.json)
