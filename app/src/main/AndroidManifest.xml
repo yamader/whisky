@@ -25,6 +25,19 @@
     </activity>
 
     <activity
+      android:name=".ComposePostActivity"
+      android:exported="true"
+      android:theme="@style/Theme.Whisky">
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:mimeType="text/plain" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+    </activity>
+
+    <activity
       android:name=".AuthActivity"
       android:exported="true"
       android:theme="@style/Theme.Whisky.Splash">

@@ -1,5 +1,7 @@
 package net.dyama.whisky.ui.screens
 
+import android.content.Intent
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -34,12 +36,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
+import net.dyama.whisky.ComposePostActivity
 import net.dyama.whisky.ui.Routes
-import net.dyama.whisky.ui.common.BackHandler
 import net.dyama.whisky.ui.screens.mainscreen.ExploreTab
 import net.dyama.whisky.ui.screens.mainscreen.HomeTab
 import net.dyama.whisky.ui.screens.mainscreen.MessagesTab
@@ -128,6 +131,7 @@ fun MainScreen(
   val drawerState = rememberDrawerState(DrawerValue.Closed)
   val scope = rememberCoroutineScope()
   val currentTab by viewModel.currentTab
+  val context = LocalContext.current
 
   BackHandler(currentTab != MainScreenTabs.HOME) {
     viewModel.setTab(MainScreenTabs.HOME)
@@ -187,7 +191,13 @@ fun MainScreen(
       },
       floatingActionButton = {
         FloatingActionButton(
-          onClick = { },
+          onClick = {
+            context.startActivity(Intent(context, ComposePostActivity::class.java).apply {
+              action = Intent.ACTION_SEND
+              type = "text/plain"
+              putExtra(Intent.EXTRA_TEXT, "asdfasdf")
+            })
+          },
           modifier = Modifier.disableHorizontalDrag(),
         ) {
           Icon(Symbols.Outlined.Edit, contentDescription = null)

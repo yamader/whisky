@@ -5,4 +5,5 @@
   <string name="e_host_invalid">無効なホストです</string>
   <string name="e_host_server_unknown">未対応のサーバです</string>
   <string name="e_wip">未実装です</string>
+  <string name="do_note">ノートする</string>
 </resources>

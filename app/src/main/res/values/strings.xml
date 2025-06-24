@@ -5,4 +5,5 @@
   <string name="e_host_invalid">Invalid host</string>
   <string name="e_host_server_unknown">Unsupported server</string>
   <string name="e_wip">Not implemented yet</string>
+  <string name="do_note">Note</string>
 </resources>
