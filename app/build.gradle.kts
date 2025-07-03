@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
@@ -45,20 +46,23 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_11.toString()
+  kotlin.compilerOptions {
+    jvmTarget = JvmTarget.JVM_11
+    optIn.addAll(
+      "androidx.compose.foundation.layout.ExperimentalLayoutApi",
+      "androidx.compose.material3.ExperimentalMaterial3Api",
+      "kotlin.time.ExperimentalTime",
+    )
   }
   buildFeatures {
     compose = true
   }
 }
 
-kotlin.compilerOptions.optIn.addAll(
-  "androidx.compose.foundation.layout.ExperimentalLayoutApi",
-  "androidx.compose.material3.ExperimentalMaterial3Api",
-)
-
 dependencies {
+  implementation(project(":lib"))
+  implementation(project(":misskey"))
+
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.browser)
   implementation(platform(libs.androidx.compose.bom))
@@ -74,7 +78,6 @@ dependencies {
   implementation(libs.ktor.client.cio)
   implementation(libs.ktor.client.content.negotiation)
   implementation(libs.ktor.client.core)
-  implementation(libs.ktor.client.websockets)
   implementation(libs.ktor.serialization.kotlinx.json)
   ksp(libs.dagger.hilt.android.compiler)
 }

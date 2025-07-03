@@ -1,7 +1,7 @@
-package net.dyama.whisky.lib.misskey.entity
+package net.dyama.misskey.entity
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 data class Note(

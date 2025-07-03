@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import net.dyama.whisky.lib.Ulid
-import net.dyama.whisky.lib.chomp
+import net.dyama.lib.Ulid
+import net.dyama.lib.chomp
 import javax.inject.Inject
 import javax.inject.Singleton
 

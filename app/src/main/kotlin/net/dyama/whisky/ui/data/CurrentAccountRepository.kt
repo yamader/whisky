@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import net.dyama.misskey.MisskeyClientFactory
 import net.dyama.whisky.data.AccountsRepository
 import net.dyama.whisky.data.AppPreferencesRepository
-import net.dyama.whisky.lib.misskey.MisskeyClientFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 

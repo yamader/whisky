@@ -18,12 +18,12 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
+import net.dyama.misskey.MisskeyClientFactory
 import net.dyama.whisky.data.Account
 import net.dyama.whisky.data.AccountsRepository
 import net.dyama.whisky.data.AppPreferencesRepository
 import net.dyama.whisky.data.AuthSessionRepository
 import net.dyama.whisky.data.AuthSessionType.MisskeyMiauth
-import net.dyama.whisky.lib.misskey.MisskeyClientFactory
 import javax.inject.Inject
 
 @AndroidEntryPoint

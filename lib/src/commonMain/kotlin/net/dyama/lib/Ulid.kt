@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib
+package net.dyama.lib
 
 import java.security.SecureRandom
 

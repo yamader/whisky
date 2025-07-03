@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "whisky"
-include(":app")
+include(":app", ":lib", ":misskey")

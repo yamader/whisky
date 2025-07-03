@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib
+package net.dyama.lib
 
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement

@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib
+package net.dyama.lib
 
 fun String.chomp(delim: String): Pair<String, String> {
   val list = this.split(delim, limit = 2)

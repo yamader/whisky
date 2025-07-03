@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import net.dyama.whisky.lib.misskey.entity.Note
+import net.dyama.misskey.entity.Note
 import net.dyama.whisky.ui.symbols.Symbols
 import net.dyama.whisky.ui.symbols.filled.SmartToy
 import net.dyama.whisky.ui.symbols.outlined.AccountCircle
@@ -54,7 +54,7 @@ fun Post(note: Note) {
           }
         }
         if (note.text != null) {
-          Text(note.text)
+          Text("$note.text")
         }
         Row(
           modifier = Modifier.fillMaxWidth(),

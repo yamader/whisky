@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib.misskey.entity
+package net.dyama.misskey.entity
 
 import kotlinx.serialization.Serializable
 

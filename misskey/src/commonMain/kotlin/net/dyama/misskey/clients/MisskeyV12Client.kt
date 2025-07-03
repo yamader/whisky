@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib.misskey.clients
+package net.dyama.misskey.clients
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -11,10 +11,10 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import net.dyama.whisky.lib.jsonObjectOf
-import net.dyama.whisky.lib.misskey.entity.Note
-import net.dyama.whisky.lib.misskey.entity.Pong
-import net.dyama.whisky.lib.misskey.entity.User
+import net.dyama.lib.jsonObjectOf
+import net.dyama.misskey.entity.Note
+import net.dyama.misskey.entity.Pong
+import net.dyama.misskey.entity.User
 
 open class MisskeyV12Client(
   protected val host: String,

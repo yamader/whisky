@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import net.dyama.whisky.lib.misskey.entity.Note
+import net.dyama.misskey.entity.Note
 import net.dyama.whisky.ui.data.CurrentAccountRepository
 import javax.inject.Inject
 

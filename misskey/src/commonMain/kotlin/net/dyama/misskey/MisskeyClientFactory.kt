@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib.misskey
+package net.dyama.misskey
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -12,15 +12,15 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import net.dyama.whisky.lib.Semver
-import net.dyama.whisky.lib.lt
-import net.dyama.whisky.lib.major
-import net.dyama.whisky.lib.misskey.clients.MisskeyClient
-import net.dyama.whisky.lib.misskey.clients.MisskeyV12Client
-import net.dyama.whisky.lib.misskey.clients.MisskeyV13Client
-import net.dyama.whisky.lib.misskey.clients.MisskeyV2023Client
-import net.dyama.whisky.lib.misskey.clients.MisskeyV2025Client
-import net.dyama.whisky.lib.toSemver
+import net.dyama.lib.Semver
+import net.dyama.lib.lt
+import net.dyama.lib.major
+import net.dyama.lib.toSemver
+import net.dyama.misskey.clients.MisskeyClient
+import net.dyama.misskey.clients.MisskeyV12Client
+import net.dyama.misskey.clients.MisskeyV13Client
+import net.dyama.misskey.clients.MisskeyV2023Client
+import net.dyama.misskey.clients.MisskeyV2025Client
 
 object MisskeyClientFactory {
   suspend fun getVersion(host: String): Semver? {

@@ -10,7 +10,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
-import net.dyama.whisky.lib.misskey.MisskeyClientFactory
+import net.dyama.lib.ge
+import net.dyama.misskey.MisskeyClientFactory
 import java.nio.channels.UnresolvedAddressException
 
 sealed class AuthServers {

@@ -1,4 +1,4 @@
-package net.dyama.whisky.lib.misskey
+package net.dyama.misskey
 
 // misskey-dev/misskey/locales/ja-JP.yml を参考に……
 
